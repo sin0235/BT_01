@@ -5,35 +5,54 @@
 <html>
 <head>
   <meta charset="UTF-8"/>
-  <title>Đăng nhập</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Đăng nhập - MyApp</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 </head>
 <body>
   <%@ include file="topbar.jsp" %>
   <div class="container">
-    <h2>Đăng nhập</h2>
+    <h2><i class="fas fa-sign-in-alt"></i> Đăng nhập</h2>
+    
+    <c:if test="${success != null}">
+      <div class="alert alert-success">
+        <i class="fas fa-check-circle"></i> ${success}
+      </div>
+    </c:if>
+    
     <c:if test="${alert != null}">
-      <h3 class="alert alert-danger">${alert}</h3>
+      <div class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle"></i> ${alert}
+      </div>
     </c:if>
 
     <form action="${pageContext.request.contextPath}/login" method="post" accept-charset="UTF-8">
       <div class="form-group">
-        <label for="username">Tài khoản</label>
-        <input type="text" id="username" name="username" class="form-control" required />
+        <label for="username"><i class="fas fa-user"></i> Tài khoản</label>
+        <input type="text" id="username" name="username" class="form-control" placeholder="Nhập tên đăng nhập" required />
       </div>
 
       <div class="form-group">
-        <label for="password">Mật khẩu</label>
-        <input type="password" id="password" name="password" class="form-control" required />
+        <label for="password"><i class="fas fa-lock"></i> Mật khẩu</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required />
       </div>
 
       <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" id="remember" name="remember" />
-        <label class="form-check-label" for="remember">Ghi nhớ đăng nhập</label>
+        <label class="form-check-label" for="remember">
+          <i class="fas fa-remember"></i> Ghi nhớ đăng nhập
+        </label>
       </div>
 
-      <button type="submit" class="btn btn-primary">Đăng nhập</button>
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-sign-in-alt"></i> Đăng nhập
+      </button>
     </form>
+    
+    <p>Chưa có tài khoản? <a href="${pageContext.request.contextPath}/register">
+      <i class="fas fa-user-plus"></i> Đăng ký ngay
+    </a></p>
   </div>
 </body>
 </html>

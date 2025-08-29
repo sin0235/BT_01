@@ -21,6 +21,16 @@ public class LoginController extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/waiting");
             return;
         }
+        
+        // Kiểm tra thông báo thành công từ đăng ký
+        if (session != null) {
+            Object msg = session.getAttribute("register_success");
+            if (msg != null) {
+                req.setAttribute("success", msg.toString());
+                session.removeAttribute("register_success");
+            }
+        }
+        
         // auto-login by cookie
         String cookieUsername = getCookieValue(req, Constant.COOKIE_REMEMBER);
         if (cookieUsername != null && !cookieUsername.isBlank()) {
