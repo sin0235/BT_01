@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <div class="topbar">
   <div class="logo">
-    <i class="fas fa-user-shield"></i> MyApp
+    <i class="fas fa-user-shield"></i> BT LT-WEB
   </div>
   <div class="nav-links">
     <c:choose>
