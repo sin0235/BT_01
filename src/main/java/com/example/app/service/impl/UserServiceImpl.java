@@ -41,41 +41,51 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean register(String email, String password, String username,
                             String fullname, String phone, String confirmPassword) {
-        // 1) Validate rỗng
         if (Validation.isBlank(email) || Validation.isBlank(password) ||
             Validation.isBlank(username) || Validation.isBlank(fullname) ||
             Validation.isBlank(confirmPassword)) {
-            return false; // Controller sẽ set "Vui lòng nhập đầy đủ thông tin"
+            return false;
         }
 
-        // 2) Validate email
         if (!Validation.isEmail(email)) {
-            return false; // "Email không hợp lệ"
+            return false;
         }
 
-        // 3) Khớp mật khẩu
         if (!password.equals(confirmPassword)) {
-            return false; // "Mật khẩu và xác nhận mật khẩu không khớp"
+            return false;
         }
 
-        // 4) Tồn tại tài khoản/email?
         if (userDao.existsUsername(username)) {
-            return false; // "Tài khoản đã tồn tại"
+            return false;
         }
         if (userDao.existsEmail(email)) {
-            return false; // "Email đã được sử dụng"
+            return false;
         }
 
-        // 5) Tạo user
         User u = new User();
         u.setEmail(email);
         u.setUsername(username);
         u.setFullname(fullname);
-        u.setPassword(password); // DEMO: plain; thực tế BCrypt
+        u.setPassword(password);
         u.setAvatar(null);
-        u.setRoleid(5);          // yêu cầu giữ 5
+        u.setRoleid(5);
         u.setPhone(phone);
 
         return userDao.create(u);
+    }
+
+    @Override
+    public boolean resetPassword(String username, String email, String newPassword, String confirmPassword) {
+        if (Validation.isBlank(username) || Validation.isBlank(email) ||
+            Validation.isBlank(newPassword) || Validation.isBlank(confirmPassword)) {
+            return false;
+        }
+        if (!Validation.isEmail(email)) {
+            return false;
+        }
+        if (!newPassword.equals(confirmPassword)) {
+            return false;
+        }
+        return userDao.updatePasswordByUsernameEmail(username, email, newPassword);
     }
 }

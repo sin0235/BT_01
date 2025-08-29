@@ -26,7 +26,28 @@ VALUES
 -- Verify the data
 SELECT * FROM `User`;
 
+-- Category table for user categories (1-N relationship with User)
+CREATE TABLE IF NOT EXISTS `Category` (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  name VARCHAR(120) NOT NULL,
+  description VARCHAR(255),
+  createddate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_category_user FOREIGN KEY (user_id) REFERENCES `User`(id)
+    ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- Insert sample categories for testing (for user with id=3)
+INSERT INTO `Category`(user_id, name, description) VALUES 
+(3, 'Work', 'Work related tasks and projects'),
+(3, 'Personal', 'Personal notes and reminders'),
+(3, 'Study', 'Learning materials and courses');
+
+-- Verify the category data
+SELECT * FROM `Category`;
+
 -- Note: For SQL Server, use the following modifications:
 -- Replace AUTO_INCREMENT with IDENTITY(1,1)
 -- Replace DATETIME with DATETIME2
+-- Replace CURRENT_TIMESTAMP with GETDATE()
 -- Remove backticks around table/column names

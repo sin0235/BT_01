@@ -21,6 +21,13 @@
       </div>
     </c:if>
     
+    <c:if test="${not empty sessionScope.reset_success}">
+      <div class="alert alert-success">
+        <i class="fas fa-check-circle"></i> ${sessionScope.reset_success}
+      </div>
+      <c:remove var="reset_success" scope="session"/>
+    </c:if>
+    
     <c:if test="${alert != null}">
       <div class="alert alert-danger">
         <i class="fas fa-exclamation-triangle"></i> ${alert}
@@ -52,6 +59,10 @@
     
     <p>Chưa có tài khoản? <a href="${pageContext.request.contextPath}/register">
       <i class="fas fa-user-plus"></i> Đăng ký ngay
+    </a></p>
+    
+    <p><a href="${pageContext.request.contextPath}/forgot-password">
+      <i class="fas fa-key"></i> Quên mật khẩu?
     </a></p>
   </div>
 </body>

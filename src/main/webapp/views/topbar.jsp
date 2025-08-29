@@ -18,6 +18,9 @@
         <span>
           <i class="fas fa-user"></i> Xin chào, ${sessionScope.account.fullname}
         </span>
+        <a href="${pageContext.request.contextPath}/category/list">
+          <i class="fas fa-list"></i> Danh mục của tôi
+        </a>
         <a href="${pageContext.request.contextPath}/logout">
           <i class="fas fa-sign-out-alt"></i> Đăng xuất
         </a>

@@ -28,7 +28,6 @@ public class RegisterController extends HttpServlet {
     String confirm  = req.getParameter("confirm");
     String phone    = req.getParameter("phone");
 
-    // Tự set thông điệp cụ thể theo từng lỗi để đúng chuỗi yêu cầu:
     if (Validation.isBlank(email) || Validation.isBlank(username) ||
         Validation.isBlank(fullname) || Validation.isBlank(password) ||
         Validation.isBlank(confirm)) {
@@ -59,13 +58,11 @@ public class RegisterController extends HttpServlet {
 
     boolean ok = userService.register(email, password, username, fullname, phone, confirm);
     if (!ok) {
-      // fallback an toàn (nếu có lỗi DB)
       req.setAttribute("alert", "Vui lòng nhập đầy đủ thông tin"); 
       req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
       return;
     }
 
-    // Thành công → chuyển sang /login và hiển thị thông báo success
     HttpSession s = req.getSession(true);
     s.setAttribute("register_success", "Đăng ký thành công, vui lòng đăng nhập");
     resp.sendRedirect(req.getContextPath() + "/login");

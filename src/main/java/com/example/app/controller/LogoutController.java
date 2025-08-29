@@ -10,16 +10,14 @@ import java.io.IOException;
 public class LogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Remove session
         HttpSession session = req.getSession(false);
         if (session != null) {
             session.invalidate();
         }
         
-        // Remove remember me cookie
         Cookie cookie = new Cookie(Constant.COOKIE_REMEMBER, "");
         cookie.setPath("/");
-        cookie.setMaxAge(0); // delete cookie
+        cookie.setMaxAge(0);
         cookie.setHttpOnly(true);
         resp.addCookie(cookie);
         
